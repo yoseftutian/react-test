@@ -3,17 +3,22 @@ import "./productsGrid.css";
 import { useState } from "react";
 import { sortProducts } from "../../utils/globalFunctions";
 import ToolsBar from "./toolsBar/toolsBar";
+import { useLoadingContext } from "../../contexts/loadingContext";
+import { CircularProgress } from "@mui/material";
 
 export default function ProductsGrid({ products }) {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState(0);
+  const { loading } = useLoadingContext();
 
   const productsToShow = products
     .filter((p) => p.title.includes(search))
     .sort((a, b) => sortProducts(a, b, sortBy))
     .map((product) => <GridItem key={nanoid()} item={product} />);
 
-  return (
+  return loading ? (
+    <CircularProgress />
+  ) : (
     <div className="grid-container">
       <ToolsBar sortBy={sortBy} setSortBy={setSortBy} setSearch={setSearch} />
       <div className="grid">
