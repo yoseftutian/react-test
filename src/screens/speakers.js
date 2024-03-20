@@ -6,12 +6,23 @@ import { getAllSpeakers } from "../utils/apiCalls.js";
 // import { speakersList } from "../data/speakersData";
 
 export default function Speakers() {
-  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYxYjRiYzM0ZGU3MDFkZTQ1ZmI0NWIiLCJpYXQiOjE3MTA4NDg5Njh9.7LB90G1SGP6T4-q9lWU9Tz2Md2QHOzxFtNB10kUfNU0
   const [speakers, setSpeakers] = useState([]);
   const { setLoading } = useLoadingContext();
   useEffect(() => {
-    getAllSpeakers(setLoading, setSpeakers);
+    const getSpeakers = async () => {
+      try {
+        setLoading(true);
+        const data = await getAllSpeakers();
+        setSpeakers(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getSpeakers();
   }, []);
+
   return (
     <div>
       <Navbar />
