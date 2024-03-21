@@ -1,3 +1,4 @@
+import ProductPage from "../components/productPage/productPage";
 import About from "../screens/about";
 import Contact from "../screens/contact";
 import Generators from "../screens/generators";
@@ -14,6 +15,11 @@ export const links = [
     title: "Speakers",
     href: "/speakers",
     element: <Speakers />,
+  },
+  {
+    title: "Speakers",
+    href: "/product/:id",
+    element: <ProductPage />,
   },
   {
     title: "Generators",
