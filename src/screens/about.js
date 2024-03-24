@@ -7,13 +7,13 @@ export default function About() {
   return (
     <div>
       <Navbar />
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
       <Modal
         title={"Are you sure you want to delete your image?"}
         clickedYes={() => {
           setOpen(false);
         }}
       />
-      <Button onClick={() => setOpen(true)}>Open modal</Button>
     </div>
   );
 }
