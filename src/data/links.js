@@ -20,6 +20,7 @@ export const links = [
     title: "Speakers",
     href: "/product/:id",
     element: <ProductPage />,
+    excluded: true,
   },
   {
     title: "Generators",

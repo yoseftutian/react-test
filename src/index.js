@@ -5,15 +5,18 @@ import "./reset.css";
 import NetefRouter from "./components/router/router";
 import { ModalProvider } from "./contexts/modalContext";
 import { LoadingProvider } from "./contexts/loadingContext";
+import LoginProvider from "./contexts/LoginContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ModalProvider>
-      <LoadingProvider>
-        <NetefRouter />
-      </LoadingProvider>
-    </ModalProvider>
+    <LoginProvider>
+      <ModalProvider>
+        <LoadingProvider>
+          <NetefRouter />
+        </LoadingProvider>
+      </ModalProvider>
+    </LoginProvider>
   </React.StrictMode>
 );
 

@@ -1,15 +1,35 @@
-import { nanoid } from "nanoid";
+import { Link } from "react-router-dom";
 import { links } from "../../data/links";
 import "./navbar.css";
+import { nanoid } from "nanoid";
+import { Button } from "@mui/material";
+import { useState } from "react";
+import RegistrationModal from "../registrationModal/registrationModal";
+import { useLoginContext } from "../../contexts/LoginContext";
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const { token } = useLoginContext();
   return (
     <nav className="container">
       <ul className="link-list">
-        {links.map((link) => (
-          <NavItem key={nanoid()} link={link} />
-        ))}
+        {links
+          .filter((item) => !item.excluded)
+          .map((item) => (
+            <NavItem key={nanoid()} link={item} />
+          ))}
       </ul>
+      {token ? (
+        <Button>SignOut</Button>
+      ) : (
+        <div className="row">
+          <Button variant="outlined">Register</Button>
+          <Button onClick={() => setOpen(true)} variant="outlined">
+            Login
+          </Button>
+        </div>
+      )}
+      {open && <RegistrationModal setOpen={setOpen} />}
     </nav>
   );
 }
@@ -17,14 +37,14 @@ export default function Navbar() {
 function NavItem({ link }) {
   return (
     <li className="list-item">
-      <a
+      <Link
         className={`link ${
           window.location.pathname === link.href && "current"
         }`}
-        href={link.href}
+        to={link.href}
       >
         {link.title}
-      </a>
+      </Link>
     </li>
   );
 }
