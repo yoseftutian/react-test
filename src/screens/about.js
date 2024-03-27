@@ -1,19 +1,41 @@
-import Modal from "../components/modal/modal";
+import { Button, TextField } from "@mui/material";
 import Navbar from "../components/navbar/navbar";
-import { Button } from "@mui/material";
-import { useModalContext } from "../contexts/modalContext";
+import { useEffect, useRef, useState } from "react";
 export default function About() {
-  const { setOpen } = useModalContext();
+  const [write, setWrite] = useState("");
+  const [write2, setWrite2] = useState("");
+  const [counter, setCounter] = useState(0);
+
+  const netef = useRef(null);
+  function handleChange(e) {
+    setWrite(e.target.value);
+  }
+  function handleChange2(e) {
+    setWrite2(e.target.value);
+  }
+
+  useEffect(() => {
+    console.log("Hello");
+    console.log(netef.current);
+  }, [write, write2]);
+
   return (
     <div>
       <Navbar />
-      <Button onClick={() => setOpen(true)}>Open modal</Button>
-      <Modal
-        title={"Are you sure you want to delete your image?"}
-        clickedYes={() => {
-          setOpen(false);
+      <TextField onChange={handleChange} />
+      <p ref={netef}>You wrote: {write}</p>
+      <TextField onChange={handleChange2} />
+      <p>You wrote2: {write2}</p>
+      <Button
+        onClick={() => {
+          setCounter((current) => current + 1);
+          setCounter((current) => current + 1);
         }}
-      />
+      >
+        +
+      </Button>
+      <p>Counter: {counter}</p>
+      <Button onClick={() => setCounter(counter - 1)}>-</Button>
     </div>
   );
 }
